@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/grey"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDEDED"
+        android:layout_marginBottom="1dp"
+
+        >
+        <FrameLayout
+            android:id="@id/form_icon_imageview"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/circle_shape"
+            android:backgroundTint="@color/basis_color"
+
+            >
+
+            <ImageView
+                android:id="@+id/form_icon_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+
+
+                app:srcCompat="@drawable/folder_icon1" />
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/form_icon_imageview"
+            >
+            <TextView
+            android:id="@+id/form_group_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Endline"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            />
+            <TextView
+                android:id="@+id/form_count_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 forms"
+                android:layout_centerVertical="true"
+                android:textColor="#464141"
+                android:textSize="13sp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_baseline_chevron_right_24"
+            android:tint="@color/basis_color"
+            android:layout_marginRight="4dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

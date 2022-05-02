@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="houseHoldVm"
+            type="org.odk.cersgis.basis.activities.viewmodels.HouseholdViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/household_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/green_500"
+                app:tabRippleColor="@color/green_500"
+                app:tabSelectedTextColor="@color/basis_color"
+                card_view:tabTextColor="@color/grey" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/household_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="#fff"-->
+    <!--        android:visibility="@{houseHoldVm.odfStatusViewModel.busy &amp;&amp; houseHoldVm.houseHoldWithoutToiletViewModel.busy ? View.VISIBLE: View.GONE, default= gone }">-->
+
+    <!--        <ProgressBar-->
+    <!--            android:layout_width="50dp"-->
+    <!--            android:layout_height="50dp"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:layout_centerVertical="true"-->
+    <!--            android:indeterminate="true"-->
+    <!--            android:progressDrawable="@drawable/indeterminate_circular_progress"-->
+    <!--            android:secondaryProgress="0" />-->
+    <!--    </RelativeLayout>-->
+</layout>

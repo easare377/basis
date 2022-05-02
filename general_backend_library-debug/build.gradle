@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('general_backend_library-debug.aar'))

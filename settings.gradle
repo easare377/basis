@@ -1,0 +1,11 @@
+include ':general_backend_library-debug'
+include ':general_backend_library-debug'
+include ':audiorecorder'
+include ':testshared'
+include ':audioclips'
+include ':strings'
+include ':async'
+include ':collect_app'
+include ':nbistubs'
+include ':material'
+//project (':general_backend_library-debug').projectDir = new File('C:\\Users\\Emmanuel\\AndroidStudioProjects\\LearnxPassco\\general_backend_library\\build\\outputs\\aar')

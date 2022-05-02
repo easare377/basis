@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="hhWithoutToiletVm"
+            type="org.odk.cersgis.basis.fragments.viewmodels.HouseHoldWithoutToiletViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/left_navigation_cardView"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    card_view:cardBackgroundColor="@color/grey"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="2dp"
+                    android:visibility="@{hhWithoutToiletVm.currentIndex == 0 ? View.INVISIBLE: View.VISIBLE}"
+                    android:onClick="@{()-> hhWithoutToiletVm.setCurrentIndex(hhWithoutToiletVm.currentIndex - 1)}">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_chevron_left_24" />
+                </androidx.cardview.widget.CardView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/left_navigation_cardView"
+                    android:layout_toStartOf="@id/right_navigation_cardView">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:text="@{hhWithoutToiletVm.communityDataMap != null ? hhWithoutToiletVm.communityDataMap.keySet().toArray()[hhWithoutToiletVm.currentIndex].toString():`K` , default=`Community`}"
+                        android:textColor="@color/black"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/right_navigation_cardView"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    card_view:cardBackgroundColor="@color/grey"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="2dp"
+                    android:visibility="@{hhWithoutToiletVm.currentIndex == hhWithoutToiletVm.communityDataMap.size() - 1 ? View.INVISIBLE: View.VISIBLE}"
+                    android:onClick="@{()-> hhWithoutToiletVm.setCurrentIndex(hhWithoutToiletVm.currentIndex + 1)}">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_chevron_right_24"/>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                card_view:cardBackgroundColor="#F4F4F4"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="2dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:weightSum="2.0"
+                        android:background="@color/white"
+                        android:orientation="horizontal" >
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="0.5dp"
+                            android:background="@color/green_500"
+                            android:layout_weight="1.0">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/white"
+                                android:text="Household Head Name"/>
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="0.5dp"
+                            android:background="@color/green_500"
+                            android:layout_weight="1.0">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/white"
+                                android:text="Status"/>
+                        </FrameLayout>
+                    </LinearLayout>
+                    <ListView
+                        android:id="@+id/household_without_toilet_listView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:visibility="@{hhWithoutToiletVm.busy ? View.VISIBLE: View.GONE, default= gone }">
+
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:indeterminate="true"
+                android:progressDrawable="@drawable/indeterminate_circular_progress"
+                android:secondaryProgress="0" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

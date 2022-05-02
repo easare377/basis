@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="org.slf4j.event.KeyValuePair"/>
+        <import type="com.emma.general_backend_library.Functions"/>
+        <variable
+            name="itemKvp"
+            type="KeyValuePair" />
+        <variable
+            name="itemIndex"
+            type="int" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
+        android:padding="5dp"
+        android:background="@{Functions.isEvenNumber(itemIndex) ? @color/white:@color/odf_status_color}"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@{itemKvp.key + `:`, default=`Odf Status:`}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@{itemKvp.value == null || itemKvp.value.toString().length() == 0 ? `Not Submitted`:itemKvp.value.toString(), default=`Not Submitted`}"/>
+    </LinearLayout>
+</layout>

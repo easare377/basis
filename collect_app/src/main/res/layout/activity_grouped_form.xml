@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDED">
+
+    <!--<include-->
+    <!--layout="@layout/toolbar"-->
+    <!--android:background="#585858" />-->
+
+    <!--<include-->
+    <!--layout="@layout/toolbar_action_bar_shadow"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/toolbar"-->
+    <!--android:background="#EDEDED" />-->
+    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        android:backgroundTint="@color/white"
+        app:titleTextColor="@color/black"
+        app:title="Fill Blank Form"
+        app:titleMargin="0dp"
+        app:contentInsetStartWithNavigation="0dp" />
+
+    <include
+    layout="@layout/toolbar_action_bar_shadow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:background="#EDEDED" />
+
+    <LinearLayout
+        android:id="@+id/llParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/form_group_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@android:id/empty"
+            style="@style/emptyViewStyle"
+            android:text="@string/no_items_display_forms"
+            android:textColor="#585858" />
+
+    </LinearLayout>
+
+</RelativeLayout>

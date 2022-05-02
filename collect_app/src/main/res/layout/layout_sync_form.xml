@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="org.odk.cersgis.basis.activities.viewmodels.SyncFormViewModel.State" />
+
+        <variable
+            name="syncFormVm"
+            type="org.odk.cersgis.basis.activities.viewmodels.SyncFormViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#BDBDBD"
+        android:paddingTop="0.5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="20dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:onClick="@{() -> syncFormVm.setSelected(!syncFormVm.selected)}"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/select_checkBox"
+                android:layout_alignParentStart="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_toLeftOf="@id/select_checkBox"
+                android:layout_alignParentLeft="true">
+
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/circle_shape"
+                    android:backgroundTint="@color/basis_color">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_baseline_insert_drive_file_24" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{syncFormVm.formName, default=`Form name`}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{syncFormVm.currentState == State.COMPLETE ? `complete`: syncFormVm.currentState == State.FAILED ? `failed` : ``, default=`complete`}"
+                        android:textColor="@{syncFormVm.currentState == State.FAILED ? @color/red : @color/dodger_blue, default= @color/dodger_blue}"
+                        android:textStyle="italic"
+                        android:visibility="@{syncFormVm.currentState == State.COMPLETE ? View.VISIBLE: syncFormVm.currentState == State.FAILED ? View.VISIBLE : View.GONE, default = gone}" />
+
+                    <ProgressBar
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="6dp"
+                        android:indeterminate="@{syncFormVm.filesDownloaded > 0? false:true, default=true}"
+                        android:max="@{syncFormVm.totalFiles}"
+                        android:progress="@{syncFormVm.filesDownloaded}"
+                        android:progressDrawable="@drawable/progress_background"
+                        android:visibility="@{syncFormVm.currentState == State.DOWNLOADING ? View.VISIBLE: View.GONE, default = visible}" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/select_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:theme="@style/basis_checkbox"
+                android:checked="@={syncFormVm.selected}"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+</layout>
