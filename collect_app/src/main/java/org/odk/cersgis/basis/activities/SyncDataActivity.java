@@ -185,8 +185,8 @@ public class SyncDataActivity extends CollectAbstractActivity {
         try {
             if (response.getStatusCode() == 200) {
                 CsvData2 csvData = response.getResponseObject(CsvData2.class);
-                System.out.println(csvData);
-                String url = csvData.getGenericCsvs()[0].getUrl();
+//                System.out.println(csvData);
+//                String url = csvData.getGenericCsvs()[0].getUrl();
                 downloadCsvs(formViewModel, csvData);
             } else {
                 formViewModel.setCurrentState(SyncFormViewModel.State.FAILED);

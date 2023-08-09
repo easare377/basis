@@ -1,7 +1,7 @@
 package org.odk.cersgis.basis.models;
 
 public class Uris {
-    private static final String baseUrl = "http://basis2.sanitationghana.org";
+    private static final String baseUrl = "https://basis.sanitationghana.org";
     private static final String signInUrl = baseUrl + "/backend/odklogin/?contact=";
     private static final String odkFormListUrl = baseUrl + "/backend/odkformlist";
     private static final String odkFormGetCsvUrl = baseUrl + "/backend/automatecsv";

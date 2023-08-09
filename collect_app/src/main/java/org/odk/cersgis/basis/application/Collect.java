@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.multidex.MultiDex;
@@ -31,6 +32,7 @@ import org.odk.cersgis.basis.external.ExternalDataManager;
 import org.odk.cersgis.basis.injection.config.AppDependencyComponent;
 import org.odk.cersgis.basis.injection.config.DaggerAppDependencyComponent;
 import org.odk.cersgis.basis.javarosawrapper.FormController;
+import org.odk.cersgis.basis.models.Paths;
 import org.odk.cersgis.basis.preferences.PreferencesProvider;
 import org.odk.cersgis.basis.storage.StoragePathProvider;
 import org.odk.cersgis.basis.utilities.FileUtils;
@@ -39,6 +41,7 @@ import org.odk.cersgis.strings.LocalizedApplication;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -122,11 +125,12 @@ public class Collect extends Application implements LocalizedApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+//        System.out.println(Paths.getBasisDir());
         singleton = this;
         Paper.init(this);
         setupDagger();
         applicationInitializer.initialize();
-        
+
         fixGoogleBug154855417();
 
         setupStrictMode();
@@ -192,7 +196,8 @@ public class Collect extends Application implements LocalizedApplication {
 
     /**
      * Gets a unique, privacy-preserving identifier for a form based on its id and version.
-     * @param formId id of a form
+     *
+     * @param formId      id of a form
      * @param formVersion version of a form
      * @return md5 hash of the form title, a space, the form ID
      */
