@@ -93,7 +93,6 @@ public class SplashScreenActivity extends Activity {
                             e.getMessage(), EXIT), SplashScreenActivity.this);
                     return;
                 }
-
                 init();
             }
 
