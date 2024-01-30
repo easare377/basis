@@ -1,6 +1,8 @@
 package org.odk.cersgis.basis;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.emma.general_backend_library.Functions;
 
@@ -27,21 +29,47 @@ public class RequestCsvTask extends AsyncTask<String, Integer, Boolean> {
     private final CsvData2 csvData;
     private final String phone_no;
 
-    public RequestCsvTask(CsvDownloadListener listener, String formName, CsvData2 csvData, String phone_no) {
+
+    public RequestCsvTask(Context context, CsvDownloadListener listener, String formName, CsvData2 csvData, String phone_no) {
         this.listener = listener;
         this.csvData = csvData;
         this.phone_no = phone_no;
-        try {
+//        try {
             String path = Paths.getBasisFormsDir() + "/" + formName + "-media";
-            Functions.createDir(path);
-        } catch (Exception e) {
-//
+            if (!Functions.createDir(path)){
+                Toast.makeText(context, "Could not create " + formName + "-media folder", Toast.LENGTH_LONG).show();
+                throw new RuntimeException();
+            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public static String downloadString(String uri) {
+        String responseString = null;
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                responseString = Functions.convertStreamToString(conn.getInputStream());
+            }else{
+                if (responseCode == 301 || responseCode == 302 || responseCode == 303) {
+                    String newUrl = conn.getHeaderField("Location");
+                    return downloadString(newUrl);
+                }
+            }
+        } catch (Exception var4) {
         }
+
+        return responseString;
     }
 
     @Override
     protected Boolean doInBackground(String... uri) {
         int progress = 0;
+        //Download Static files
         for (Generic genericCsv : csvData.getGenericCsvs()) {
             if(isCancelled()){
                 return false;
@@ -55,7 +83,9 @@ public class RequestCsvTask extends AsyncTask<String, Integer, Boolean> {
         if (csvData.getDynamicData().getTriggerUrl() == null || csvData.getDynamicData().getTriggerUrl().equals("")){
             return true;
         }
-        String response = Functions.DownloadString(Uris.getBaseUrl()+ csvData.getDynamicData().getTriggerUrl() + "?contact=" + phone_no);
+        String triggerUrl = Uris.getBaseUrl()+ csvData.getDynamicData().getTriggerUrl() + "?contact=" + phone_no;
+        String response = downloadString(triggerUrl);
+        //Download dynamic files
         if (response != null && response.equalsIgnoreCase("\"done\"")) {
             for (Generic genericCsv : csvData.getDynamicData().getDynamicCsvs()) {
                 if(isCancelled()){

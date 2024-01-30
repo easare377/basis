@@ -198,7 +198,7 @@ public class SyncDataActivity extends CollectAbstractActivity {
     }
 
     private void downloadCsvs(SyncFormViewModel formViewModel, CsvData2 csvData) {
-        RequestCsvTask requestCsvTask = new RequestCsvTask(new CsvDownloadListener() {
+        RequestCsvTask requestCsvTask = new RequestCsvTask(this ,new CsvDownloadListener() {
             @Override
             public void fileDownloadComplete(int totalFilesDownloaded, int totalFiles) {
                 formViewModel.setFilesDownloaded(totalFilesDownloaded);

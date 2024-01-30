@@ -127,6 +127,7 @@ public class Collect extends Application implements LocalizedApplication {
         super.onCreate();
 //        System.out.println(Paths.getBasisDir());
         singleton = this;
+        Paths.init(this);
         Paper.init(this);
         setupDagger();
         applicationInitializer.initialize();
